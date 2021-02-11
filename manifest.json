@@ -1,0 +1,29 @@
+{
+	"name": "Homestuck Assistant",
+	"description": "Download Homestuck Flash easily and make it dark",
+	"version": "0.1",
+	"manifest_version": 2,
+	"permissions": [
+		"webNavigation",
+		"tabs"
+	],
+	
+	"content_scripts": [
+		{
+		  "matches": ["https://www.homestuck.com/story/*"],
+		  "js": ["src/jquery-3.5.1.min.js", "src/content.js"],
+		  "run_at": "document_end"
+		}
+	],
+	
+	"browser_action": {
+		"default_popup": "html/popup.html",
+		"default_icon": "assets/Sburb_Logo_Off.png",
+		"default_title": "Homestuck Assistant"
+	},
+	
+	"background": {
+		"scripts": ["src/background.js"],
+		"persistent": false
+	}
+}

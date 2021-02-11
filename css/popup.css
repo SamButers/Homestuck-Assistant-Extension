@@ -1,0 +1,28 @@
+body {
+	text-align: center;
+}
+
+.logo {
+	width: 125px;
+}
+
+button {
+	margin-top: 5px;
+	color: #4be14e;
+	border: 3px solid #4be14e;
+	border-radius: 3px;
+	background-color: transparent;
+	font-family: Impact;
+	font-size: 24px;
+	transition: 250ms;
+	cursor: pointer;
+	outline: none;
+}
+
+button:hover {
+	filter: brightness(0.85);
+}
+
+button:active {
+	transform: scale(0.9);
+}
