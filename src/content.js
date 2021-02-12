@@ -8,7 +8,7 @@ function rgbToHsl(r, g, b) {
 	let h, s, l = (max + min) / 2;
 
 	if (max == min) {
-		h = s = 0; // achromatic
+		h = s = 0;
 	} else {
 		let d = max - min;
 		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -47,26 +47,29 @@ if(middleBg.css('background-color') == 'rgb(198, 198, 198)' && innerBg.css('back
 	$('.line-caption, .type-hs-header').css('color', 'white');
 	
 	for(let c = 0; c < chat_messages.length; c += 1) {
-		console.log('a')
-		console.log(chat_messages[c].style.color)
 		if(!chat_colors[chat_messages[c].style.color]) {
 			let hslColor; 
 			
-			if(chat_messages[c].style.color[0] == '#')
-				hslColor = rgbToHsl(parseInt(chat_messages[c].style.color.substr(1,2), 16),
-											 parseInt(chat_messages[c].style.color.substr(3,2), 16),
-											 parseInt(chat_messages[c].style.color.substr(5,2), 16));
-											 
-			if(chat_messages[c].style.color[0] == 'r') {
-				let rgb = chat_messages[c].style.color.match(/\d+/g);
-				hslColor = rgbToHsl(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+			try {
+				if(chat_messages[c].style.color[0] == '#')
+					hslColor = rgbToHsl(parseInt(chat_messages[c].style.color.substr(1,2), 16),
+												 parseInt(chat_messages[c].style.color.substr(3,2), 16),
+												 parseInt(chat_messages[c].style.color.substr(5,2), 16));
+												 
+				if(chat_messages[c].style.color[0] == 'r') {
+					let rgb = chat_messages[c].style.color.match(/\d+/g);
+					hslColor = rgbToHsl(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]));
+				}
+				
+				chat_colors[chat_messages[c].style.color] = `hsl(${hslColor[0] * 360}, ${hslColor[1] * 100}%, ${(hslColor[2] * 100) > 65?(hslColor[2] * 100):65}%)`;
+			} catch(e) {
+				switch(chat_messages[c].style.color) {
+					case 'black':
+						chat_colors[chat_messages[c].style.color] = '#818181';
+				}
 			}
-										 
-			chat_colors[chat_messages[c].style.color] = `hsl(${hslColor[0] * 360}, ${hslColor[1] * 100}%, ${(hslColor[2] * 100) > 65?(hslColor[2] * 100):65}%)`;
 		}
 			
 			chat_messages[c].style.color = chat_colors[chat_messages[c].style.color];
 	}
 }
-
-//o_chat-log
